@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+<<<<<<< HEAD
 import exceptions.CategoriaInvalidaException;
 import exceptions.CategoriaNulaException;
 import exceptions.CidadeInvalidaException;
@@ -23,6 +24,8 @@ import exceptions.NomeNuloException;
 import exceptions.NomeVazioException;
 import exceptions.SexoInvalidoException;
 import exceptions.SexoNuloException;
+=======
+>>>>>>> master
 import model.Categoria;
 import model.Pessoa;
 
@@ -32,8 +35,11 @@ public class Controller {
 	private ArrayList<Pessoa> listaPessoas = null;
 	private ArrayList<Categoria> listaCategorias = null;
 	
+<<<<<<< HEAD
 	private final int CPFLENGTH = 11;
 	
+=======
+>>>>>>> master
 	/*______________________________________________________________________________________________________________________________________*/
 	
 	/**
@@ -105,6 +111,7 @@ public class Controller {
 	 * @param nome - Nome da pessoa a ser adicionada.
 	 * @param cpf - CPF da pessoa a ser adicionada.
 	 * @param cidade - Cidade da pessoa a ser adicionada.
+<<<<<<< HEAD
 	 * @param sexo - Sexo da pessoa a ser adicionada.
 	 * @param dataNascimento - Data de nascimento da pessoa.
 	 * @param quantVacinas - Quantidade de vacinas tomadas pela pessoa a ser cadastrada.
@@ -185,6 +192,19 @@ public class Controller {
 		if(cpf == null) {
 			new CpfNuloException();
 		}
+=======
+	 * @param dataNascimento - Data de nascimento da pessoa.
+	 */
+	public Pessoa adicionarPessoa(String nome, String cpf, String cidade, boolean sexo, Date dataDeNascimento, int quantVacinas, Categoria categoria) {
+		Pessoa pessoa = null;
+		
+		if(nome.trim().equals(null) || cpf.trim().equals(null) || ) {
+			return null;
+		}
+		
+		
+		pessoa = new Pessoa(nome, cpf, cidade, sexo, dataDeNascimento, quantVacinas, categoria);
+>>>>>>> master
 		return null;
 	}
 	
