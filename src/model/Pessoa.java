@@ -12,12 +12,12 @@ public class Pessoa{
 	private String nome = null;
 	private String cpf = null;
 	private String cidade = null;
-	private boolean sexo = false;
+	private String sexo = null;
 	private Date dataDeNascimento = null;
 	private int quantVacinas = 0;
 	private Categoria categoria = null;
 	
-	public Pessoa(String nome, String cpf, String cidade, boolean sexo, Date dataDeNascimento, int quantVacinas, Categoria categoria) {
+	public Pessoa(String nome, String cpf, String cidade, String sexo, Date dataDeNascimento, int quantVacinas, Categoria categoria) {
 		this.nome = nome;
 		this.cpf = cpf;
 		this.cidade = cidade;
@@ -70,17 +70,17 @@ public class Pessoa{
 		this.cidade = cidade;
 	}
 	/**
-	 * Retorna o sexo da pessoa, true para homem, false para mulher
+	 * Retorna o sexo da pessoa.
 	 * @return the sexo
 	 */
-	public boolean isSexo() {
+	public String isSexo() {
 		return sexo;
 	}
 	/**
-	 * Altera o sexo da pessoa, true para homem, false para mulher
+	 * Altera o sexo da pessoa.
 	 * @param sexo the sexo to set
 	 */
-	public void setSexo(boolean sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 	/**

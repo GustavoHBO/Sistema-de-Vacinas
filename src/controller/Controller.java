@@ -11,6 +11,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import exceptions.CategoriaInvalidaException;
+import exceptions.CategoriaNulaException;
+import exceptions.CidadeInvalidaException;
+import exceptions.CidadeNulaException;
+import exceptions.CpfNuloException;
+import exceptions.CpfInvalidoException;
+import exceptions.DataInvalidaException;
+import exceptions.DataNulaException;
+import exceptions.NomeNuloException;
+import exceptions.NomeVazioException;
+import exceptions.SexoInvalidoException;
+import exceptions.SexoNuloException;
 import model.Categoria;
 import model.Pessoa;
 
@@ -19,6 +31,8 @@ public class Controller {
 	private static Controller controller = new Controller();
 	private ArrayList<Pessoa> listaPessoas = null;
 	private ArrayList<Categoria> listaCategorias = null;
+	
+	private final int CPFLENGTH = 11;
 	
 	/*______________________________________________________________________________________________________________________________________*/
 	
@@ -91,17 +105,86 @@ public class Controller {
 	 * @param nome - Nome da pessoa a ser adicionada.
 	 * @param cpf - CPF da pessoa a ser adicionada.
 	 * @param cidade - Cidade da pessoa a ser adicionada.
+	 * @param sexo - Sexo da pessoa a ser adicionada.
 	 * @param dataNascimento - Data de nascimento da pessoa.
+	 * @param quantVacinas - Quantidade de vacinas tomadas pela pessoa a ser cadastrada.
+	 * @param categoria - Categoria que a pessoa a ser cadastrada pertence.
+	 * @throws NomeNuloException - Caso o nome seja nulo.
+	 * @throws NomeVazioException - Caso o nome esteja vazio.
+	 * @throws CpfNuloException - Caso o CPF seja nulo.
+	 * @throws CpfInvalidoException - Caso o CPF esteja vazio.
+	 * @throws CidadeNulaException - Caso a cidade seja nula.
+	 * @throws CidadeInvalidaException - Caso a cidade seja invalida.
+	 * @throws SexoNuloException - Caso o sexo seja nulo.
+	 * @throws SexoInvalidoException - Caso o sexo seja invalido.
+	 * @throws DataNulaException - Caso a data seja nula.
+	 * @throws DataInvalidaException - Caso a data seja invalida.
+	 * @throws CategoriaNulaException - Casp a categoria seja nula.
+	 * @throws CategoriaInvalidaException - Caso a categoria seja invalida.
 	 */
-	public Pessoa adicionarPessoa(String nome, String cpf, String cidade, boolean sexo, Date dataDeNascimento, int quantVacinas, Categoria categoria) {
+	public Pessoa adicionarPessoa(String nome, String cpf, String cidade, String sexo, Date dataDeNascimento, int quantVacinas, Categoria categoria) {
 		Pessoa pessoa = null;
 		
-		if(nome.trim().equals(null) || cpf.trim().equals(null) || ) {
-			return null;
+		if(nome == null) {
+			new NomeNuloException();
 		}
-		
-		
-		pessoa = new Pessoa(nome, cpf, cidade, sexo, dataDeNascimento, quantVacinas, categoria);
+		else if(nome.trim().equals(null)) {
+			new NomeVazioException();
+		}
+		else if(cpf == null) {
+			new CpfNuloException();
+		}
+		else if (cpf.trim().equals(null) || cpf.length() != CPFLENGTH || !cpf.matches("[0-9]")) {
+			new CpfInvalidoException();
+		}
+		else if(cidade == null) {
+			new CidadeNulaException();
+		}
+		else if(cidade.trim().equals(cidade)) {
+			new CidadeInvalidaException();
+		}
+		else if(sexo == null) {
+			new SexoNuloException();
+		}
+		else if(sexo.trim().equals(sexo) || sexo.toUpperCase().equals("MASCULINO") || sexo.toUpperCase().equals("FEMININO")) {
+			new SexoInvalidoException();
+		}
+		else if(dataDeNascimento == null) {
+			new DataNulaException();
+		}
+		else if(dataDeNascimento.after(new Date())) {
+			new DataInvalidaException();
+		}
+		else if(categoria == null) {
+			new CategoriaNulaException();
+		}
+		else {
+			Iterator<Categoria> it = listaCategorias.iterator();
+			Categoria categoriaSearch = null;
+			while(it.hasNext()) {
+				categoriaSearch = it.next();
+				if(categoria.getNomeCategoria().equals(categoriaSearch.getNomeCategoria())) {
+					pessoa = new Pessoa(nome, cpf, cidade, sexo, dataDeNascimento, quantVacinas, categoria);
+					return pessoa;
+				}
+			}
+			new CategoriaInvalidaException();
+		}
+		return pessoa;
+	}
+	
+	/*______________________________________________________________________________________________________________________________________*/
+	
+	/**
+	 * Remove e retorna a pessoa excluida, ou null caso a pessoa não exista..
+	 * @param cpf - CPF da pessoa a ser removida.
+	 * @return pessoa - Pessoa removida ou null caso a pessoa não exista.
+	 */
+	public Pessoa removerPessoa(String cpf) {
+		Pessoa pessoa = null;
+		if(cpf == null) {
+			new CpfNuloException();
+		}
 		return null;
 	}
 	
