@@ -12,20 +12,13 @@ public class Pessoa{
 	private String nome = null;
 	private String cpf = null;
 	private String cidade = null;
-<<<<<<< HEAD
 	private String sexo = null;
-=======
-	private boolean sexo = false;
->>>>>>> master
 	private Date dataDeNascimento = null;
 	private int quantVacinas = 0;
 	private Categoria categoria = null;
 	
-<<<<<<< HEAD
+
 	public Pessoa(String nome, String cpf, String cidade, String sexo, Date dataDeNascimento, int quantVacinas, Categoria categoria) {
-=======
-	public Pessoa(String nome, String cpf, String cidade, boolean sexo, Date dataDeNascimento, int quantVacinas, Categoria categoria) {
->>>>>>> master
 		this.nome = nome;
 		this.cpf = cpf;
 		this.cidade = cidade;
@@ -90,19 +83,6 @@ public class Pessoa{
 	 * @param sexo the sexo to set
 	 */
 	public void setSexo(String sexo) {
-=======
-	 * Retorna o sexo da pessoa, true para homem, false para mulher
-	 * @return the sexo
-	 */
-	public boolean isSexo() {
-		return sexo;
-	}
-	/**
-	 * Altera o sexo da pessoa, true para homem, false para mulher
-	 * @param sexo the sexo to set
-	 */
-	public void setSexo(boolean sexo) {
->>>>>>> master
 		this.sexo = sexo;
 	}
 	/**

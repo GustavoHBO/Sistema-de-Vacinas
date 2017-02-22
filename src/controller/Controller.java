@@ -11,21 +11,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-<<<<<<< HEAD
 import exceptions.CategoriaInvalidaException;
 import exceptions.CategoriaNulaException;
 import exceptions.CidadeInvalidaException;
 import exceptions.CidadeNulaException;
-import exceptions.CpfNuloException;
 import exceptions.CpfInvalidoException;
+import exceptions.CpfNuloException;
 import exceptions.DataInvalidaException;
 import exceptions.DataNulaException;
 import exceptions.NomeNuloException;
 import exceptions.NomeVazioException;
 import exceptions.SexoInvalidoException;
 import exceptions.SexoNuloException;
-=======
->>>>>>> master
 import model.Categoria;
 import model.Pessoa;
 
@@ -34,14 +31,11 @@ public class Controller {
 	private static Controller controller = new Controller();
 	private ArrayList<Pessoa> listaPessoas = null;
 	private ArrayList<Categoria> listaCategorias = null;
-	
-<<<<<<< HEAD
+
 	private final int CPFLENGTH = 11;
-	
-=======
->>>>>>> master
+
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Controller privado para utilização do singleton
 	 */
@@ -49,9 +43,9 @@ public class Controller {
 		listaPessoas = new ArrayList<Pessoa>();
 		listaCategorias = new ArrayList<Categoria>();
 	}
-	
+
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Retorna a instancia existente do controller
 	 * @return controller
@@ -61,18 +55,18 @@ public class Controller {
 			controller = new Controller();
 		return controller;
 	}
-	
+
 	/*______________________________________________________________________________________________________________________________________*/	
-	
+
 	/**
 	 * Zera a instancia existente do controller
 	 */
 	public void zerarSingleton() {
 		controller = new Controller();
 	}
-	
+
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Adiciona uma categoria e retorna a categoria adicionada.
 	 * @param nomeCategoria - Nome da categoria a ser adicionada.
@@ -83,9 +77,9 @@ public class Controller {
 		listaCategorias.add(categoria);
 		return categoria;
 	}
-	
+
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Remove e retorna a categoria.
 	 * @param nomeCategoria - Nome da categoria a ser removida.
@@ -103,15 +97,14 @@ public class Controller {
 		}
 		return null;
 	}
-	
+
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Adiciona e retorna a pessoa inserida.
 	 * @param nome - Nome da pessoa a ser adicionada.
 	 * @param cpf - CPF da pessoa a ser adicionada.
 	 * @param cidade - Cidade da pessoa a ser adicionada.
-<<<<<<< HEAD
 	 * @param sexo - Sexo da pessoa a ser adicionada.
 	 * @param dataNascimento - Data de nascimento da pessoa.
 	 * @param quantVacinas - Quantidade de vacinas tomadas pela pessoa a ser cadastrada.
@@ -131,29 +124,45 @@ public class Controller {
 	 */
 	public Pessoa adicionarPessoa(String nome, String cpf, String cidade, String sexo, Date dataDeNascimento, int quantVacinas, Categoria categoria) {
 		Pessoa pessoa = null;
-		
+
 		if(nome == null) {
 			new NomeNuloException();
 		}
-		else if(nome.trim().equals(null)) {
+		else if(nome.trim().length() == 0) {
 			new NomeVazioException();
 		}
 		else if(cpf == null) {
 			new CpfNuloException();
 		}
-		else if (cpf.trim().equals(null) || cpf.length() != CPFLENGTH || !cpf.matches("[0-9]")) {
-			new CpfInvalidoException();
+		else if (cpf.trim().length() == 0 || cpf.length() != CPFLENGTH) {
+			for(char a: cpf.toCharArray()) {
+				switch(a) {
+				case '0':
+				case '1':
+				case '2':
+				case '3':
+				case '4':
+				case '5':
+				case '6':
+				case '7':
+				case '8':
+				case '9':
+					break;
+				default:
+					new CpfInvalidoException();
+				}
+			}
 		}
 		else if(cidade == null) {
 			new CidadeNulaException();
 		}
-		else if(cidade.trim().equals(cidade)) {
+		else if(cidade.trim().length() == 0) {
 			new CidadeInvalidaException();
 		}
 		else if(sexo == null) {
 			new SexoNuloException();
 		}
-		else if(sexo.trim().equals(sexo) || sexo.toUpperCase().equals("MASCULINO") || sexo.toUpperCase().equals("FEMININO")) {
+		else if(sexo.trim().length() == 0 || sexo.toUpperCase().equals("MASCULINO") || sexo.toUpperCase().equals("FEMININO")) {
 			new SexoInvalidoException();
 		}
 		else if(dataDeNascimento == null) {
@@ -177,11 +186,11 @@ public class Controller {
 			}
 			new CategoriaInvalidaException();
 		}
-		return pessoa;
+		return null;
 	}
-	
+
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Remove e retorna a pessoa excluida, ou null caso a pessoa não exista..
 	 * @param cpf - CPF da pessoa a ser removida.
@@ -192,24 +201,24 @@ public class Controller {
 		if(cpf == null) {
 			new CpfNuloException();
 		}
-=======
-	 * @param dataNascimento - Data de nascimento da pessoa.
-	 */
-	public Pessoa adicionarPessoa(String nome, String cpf, String cidade, boolean sexo, Date dataDeNascimento, int quantVacinas, Categoria categoria) {
-		Pessoa pessoa = null;
-		
-		if(nome.trim().equals(null) || cpf.trim().equals(null) || ) {
-			return null;
+		else if(cpf.trim().length() == 0) {
+			new CpfInvalidoException();
 		}
-		
-		
-		pessoa = new Pessoa(nome, cpf, cidade, sexo, dataDeNascimento, quantVacinas, categoria);
->>>>>>> master
+		else {
+			Iterator<Pessoa> it = listaPessoas.iterator();
+			while(it.hasNext()) {
+				pessoa = it.next();
+				if(pessoa.getCpf().equals(cpf)) {
+					listaPessoas.remove(pessoa);
+					return pessoa;
+				}
+			}
+		}
 		return null;
 	}
-	
+
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Retorna a lista de pessoas
 	 * @return the listaPessoas
@@ -219,7 +228,7 @@ public class Controller {
 	}
 
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Altera a lista de pessoas
 	 * @param listaPessoas the listaPessoas to set
@@ -229,7 +238,7 @@ public class Controller {
 	}
 
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Retorna uma lista de categorias adicionadas
 	 * @return the listaCategorias
@@ -239,7 +248,7 @@ public class Controller {
 	}
 
 	/*______________________________________________________________________________________________________________________________________*/
-	
+
 	/**
 	 * Altera a lista de categorias adicionadas
 	 * @param listaCategorias the listaCategorias to set
