@@ -183,7 +183,7 @@ public class Controller {
 					pessoa = new Pessoa(nome, cpf, cidade, sexo, dataDeNascimento, quantVacinas, categoria);
 					return pessoa;
 				}
-			}
+			}  
 			new CategoriaInvalidaException();
 		}
 		return null;
