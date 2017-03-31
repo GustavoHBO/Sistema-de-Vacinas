@@ -3,4 +3,4 @@ Sistema para gerenciamento de doses de vacinas
 
 Projeto seguindo o padrão git flow!
 
-Tentativa de criar o repositório remoto.
+Projeto para desenvolvimento de um software para gerenciamento de doses de vacina para alunos de enfermagem.
